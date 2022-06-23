@@ -1,0 +1,15 @@
+﻿.top-row {
+    display:flex;
+    align-items:center;
+    background-color:#2bbbad;
+    height:50px;
+    padding:10px;
+}
+
+.navBarToggler
+{
+    background-color:transparent;
+    border:none;
+    font-size:24px;
+    text-decoration:none;
+}

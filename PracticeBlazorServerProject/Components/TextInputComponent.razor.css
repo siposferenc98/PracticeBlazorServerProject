@@ -1,0 +1,31 @@
+﻿.form-group ::deep input {
+    font-family: Roboto;
+    color: #12004c;
+    background-color: aliceblue;
+    border: 2px solid #011463;
+    border-radius: 24px;
+    padding: 10px 15px 10px 15px;
+    margin: 10px;
+    outline: none !important;
+    box-shadow:rgba(0, 0, 0, 0.1) 2px 2px;
+    transition: all 220ms ease-in-out;
+}
+
+    .form-group ::deep input:focus {
+        border-color: #38a5c6;
+    }
+
+    .form-group ::deep input::placeholder {
+        position: relative;
+        color: #12004c;
+        text-transform: uppercase;
+        transition: all 180ms ease-in-out;
+    }
+    .form-group ::deep input:focus::placeholder
+    {
+        font-size:12px;
+        transform:translate(100%,-100%);
+        margin-left:100%;
+    }
+
+

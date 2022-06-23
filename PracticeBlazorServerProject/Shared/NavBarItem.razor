@@ -1,0 +1,18 @@
+﻿
+<NavLink href=@Href class="w3-center w3-padding-32 nav-link w3-border-bottom" Match=@Match>
+    <div class="d-flex flex-column navBarText">
+        <span class="w3-padding-16">@Text</span>
+        <i class="icon fa-solid @Icon"></i>
+    </div>
+</NavLink>
+
+@code {
+    [Parameter]
+    public string Icon{ get; set; }
+    [Parameter]
+    public string Text{ get; set; }
+    [Parameter]
+    public string Href{ get; set; }
+    [Parameter]
+    public NavLinkMatch Match{ get; set; }
+}

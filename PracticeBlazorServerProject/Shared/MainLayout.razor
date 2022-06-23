@@ -1,0 +1,25 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>PracticeBlazorServerProject</PageTitle>
+
+<CascadingValue Value=@ShowNavBar>
+    <div class="d-flex" style="height:100vh">
+        <NavBar ToggleNavBar=@ToggleNavBar/>
+        <div class="d-flex flex-fill flex-column">
+            <TopRow ToggleNavBar=@ToggleNavBar/>
+            @Body
+        </div>
+    </div>
+</CascadingValue>
+
+
+@code
+{
+    bool ShowNavBar { get; set; }
+
+    private void ToggleNavBar()
+    {
+        ShowNavBar = !ShowNavBar;
+        StateHasChanged();
+    }
+}

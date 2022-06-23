@@ -1,0 +1,28 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<div class="w3-container">
+    <h1>Testing</h1>
+    <EditForm Model=@Person>
+        <TextInputComponent @bind-BindValue=@Person.Name Placeholder="Username"></TextInputComponent>
+        <TextInputComponent @bind-BindValue=@Person.Name Placeholder="Password"></TextInputComponent>
+    </EditForm>
+    
+    <p>
+        @Person.Name
+    </p>
+</div>
+
+
+@code
+{
+    public class TestingClass
+    {
+        public string Name { get; set;}
+        public int Age{ get; set; }
+    }
+
+    private TestingClass Person = new();
+
+}

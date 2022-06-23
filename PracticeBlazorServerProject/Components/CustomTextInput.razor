@@ -1,0 +1,13 @@
+﻿@using System.Diagnostics.CodeAnalysis
+@inherits InputBase<string> 
+
+<h3>CustomTextInput</h3>
+
+@code {
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string result, [NotNullWhen(false)] out string validationErrorMessage)
+    {
+        result = value;
+        validationErrorMessage = null;
+        return true;
+    }
+}

@@ -1,0 +1,18 @@
+﻿<div class="form-group">
+    <InputText @oninput=@TextChanged ValueExpression="@( ()=> BindValue)" placeholder=@Placeholder class="customTextInput" />
+</div>
+
+@code {
+    [Parameter]
+    public string? Placeholder{ get; set; }
+    [Parameter]
+    public string? BindValue{ get; set; }
+    [Parameter]
+    public EventCallback<string> BindValueChanged{ get; set; }
+
+    private async Task TextChanged(ChangeEventArgs args)
+    {
+        BindValue = args.Value!.ToString();
+        await BindValueChanged.InvokeAsync(BindValue);
+    }
+}

@@ -1,0 +1,18 @@
+﻿<div class="top-row">
+    <button class="navBarToggler" @onclick=@Toggle>
+        <i class="fa-solid @(ShowNavBar ? "fa-circle-arrow-left" : "fa-bars")"></i>
+    </button>
+</div>
+
+
+@code {
+    [CascadingParameter]
+    public bool ShowNavBar{ get; set; }
+    [Parameter]
+    public Action ToggleNavBar{ get; set; }
+
+    private void Toggle()
+    {
+        ToggleNavBar.Invoke();
+    }
+}
