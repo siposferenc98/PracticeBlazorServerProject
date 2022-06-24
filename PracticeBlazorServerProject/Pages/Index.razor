@@ -1,28 +1,32 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
 
-<div class="w3-container">
-    <h1>Testing</h1>
-    <EditForm Model=@Person>
-        <TextInputComponent @bind-BindValue=@Person.Name Placeholder="Username"></TextInputComponent>
-        <TextInputComponent @bind-BindValue=@Person.Name Placeholder="Password"></TextInputComponent>
-    </EditForm>
-    
-    <p>
-        @Person.Name
-    </p>
+<PageTitle>Events</PageTitle>
+
+<div class="d-flex flex-fill flex-column m-3">
+    <div>
+        <CustomSmallButton Icon="fa-arrows-rotate" Color="white" BackgroundColor="#2626a8"/>
+    </div>
+    <div>
+        <EventCollapser Event=@e></EventCollapser>
+    </div>
 </div>
 
 
 @code
 {
-    public class TestingClass
-    {
-        public string Name { get; set;}
-        public int Age{ get; set; }
-    }
-
-    private TestingClass Person = new();
-
+    private Event e = new()
+        {
+            ImageUrl = "./Images/logo.png",
+            Title = "Test Event",
+            Cards = new()
+            {
+                new()
+                {
+                    BackgroundUrl = "https://t4.ftcdn.net/jpg/02/99/58/35/360_F_299583549_nhVRkQKMO1mpZ3NBoNz1I8HRUi6aR2w4.jpg",
+                    Title = "testcard",
+                    ImageUrl ="./Images/logo.png"
+                }
+            }
+        };
 }

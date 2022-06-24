@@ -1,0 +1,28 @@
+﻿<div class="d-flex flex-column justify-content-center m-2 p-2">
+    <div>
+        <CustomSmallButton 
+            Icon="@(_isShown ? "fa-angle-up" : "fa-angle-down" )" 
+            OnClick=@(()=>_isShown = !_isShown)
+            BackgroundColor="transparent"
+            AdditionalClasses="mx-2"
+            />
+        <img src=@Event.ImageUrl/>
+        <span>@Event.Title</span>
+    </div>
+
+    @if(_isShown)
+    {
+        <div>
+            @foreach(var card in Event.Cards)
+            {
+                <Card BackgroundImage=@card.BackgroundUrl Title=@card.Title TopImage=@card.ImageUrl></Card>
+            }
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public Event Event{ get; set; }
+    private bool _isShown;
+}

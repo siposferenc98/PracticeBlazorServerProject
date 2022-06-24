@@ -1,0 +1,14 @@
+﻿div {
+    background-color: #38a5c6;
+
+}
+    div > *
+    {
+        margin:3px 10px 3px 5px;
+    }
+
+img
+{
+    width:48px;
+    height:48px;
+}

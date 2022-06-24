@@ -1,0 +1,16 @@
+﻿<button class="@AdditionalClasses" @onclick=@OnClick style="color:@Color;background-color:@BackgroundColor">
+    <i class="fa-solid @Icon"></i>
+</button>
+
+@code {
+    [Parameter]
+    public string Icon{ get; set; }
+    [Parameter]
+    public Action OnClick{ get; set; }
+    [Parameter]
+    public string Color { get; set; } = "black";
+    [Parameter]
+    public string BackgroundColor{ get; set; }
+    [Parameter]
+    public string? AdditionalClasses{ get; set; }
+}
