@@ -1,7 +1,10 @@
-﻿<div class="top-row">
+﻿@inject IJSRuntime _js
+
+<div class="top-row">
     <button class="navBarToggler" @onclick=@Toggle>
         <i class="fa-solid @(ShowNavBar ? "fa-circle-arrow-left" : "fa-bars")"></i>
     </button>
+    <span>@_title</span>
 </div>
 
 
@@ -10,6 +13,13 @@
     public bool ShowNavBar{ get; set; }
     [Parameter]
     public Action ToggleNavBar{ get; set; }
+    private string _title;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        _title = await _js.InvokeAsync<string>("getTitle");
+        StateHasChanged();
+    }
 
     private void Toggle()
     {

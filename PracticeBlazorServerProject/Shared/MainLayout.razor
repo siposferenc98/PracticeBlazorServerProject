@@ -3,7 +3,7 @@
 <PageTitle>PracticeBlazorServerProject</PageTitle>
 
 <CascadingValue Value=@ShowNavBar>
-    <div class="d-flex" style="height:100vh">
+    <div class="d-flex" style="min-height:100vh">
         <NavBar ToggleNavBar=@ToggleNavBar/>
         <div class="d-flex flex-fill flex-column">
             <TopRow ToggleNavBar=@ToggleNavBar/>
@@ -16,6 +16,7 @@
 @code
 {
     bool ShowNavBar { get; set; }
+    private object? _currentPage => Body.Target;
 
     private void ToggleNavBar()
     {

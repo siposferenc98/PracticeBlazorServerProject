@@ -15,7 +15,7 @@
         <div>
             @foreach(var card in Event.Cards)
             {
-                <Card BackgroundImage=@card.BackgroundUrl Title=@card.Title TopImage=@card.ImageUrl></Card>
+                <CardComponent Card=@card></CardComponent>
             }
         </div>
     }

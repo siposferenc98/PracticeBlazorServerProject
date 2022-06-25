@@ -1,0 +1,36 @@
+﻿@inject NavigationManager _navigation
+
+<div class="d-flex" style="min-height:350px; width:250px;background-image:url(@Card.BackgroundUrl);backdrop-filter:blur(3.5rem)">
+    <div class="d-flex flex-column flex-fill p-3" style="background-color:rgba(0,0,0,0.8);">
+        <img src=@Card.ImageUrl class="rounded-circle" style="width:48px;height:48px;background-color:white;" />
+        <p class="fw-bold text-white">@Card.Title</p>
+        <p class="text-white-50">@Card.Location</p>
+        
+        @if (Editable)
+        {
+            <CustomSmallButton AdditionalClasses="margin-top:auto" BackgroundColor="blue" Color="white" Icon="fa-pen-to-square" OnClick=@NavigateToEdit></CustomSmallButton>
+        }
+        else
+        {
+            <button style="margin-top:auto;">Delete</button>
+        }
+        
+
+    </div>
+</div>
+
+
+
+
+@code {
+    [Parameter]
+    public Card Card{ get; set; }
+    [Parameter]
+    public bool Editable { get; set; } = false;
+
+    private void NavigateToEdit()
+    {
+        _navigation.NavigateTo($"/cards/edit/{Card.Id}");
+    }
+
+}
