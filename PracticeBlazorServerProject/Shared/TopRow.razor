@@ -4,21 +4,31 @@
     <button class="navBarToggler" @onclick=@Toggle>
         <i class="fa-solid @(ShowNavBar ? "fa-circle-arrow-left" : "fa-bars")"></i>
     </button>
-    <span>@_title</span>
+    <span>@Title</span>
 </div>
 
 
 @code {
+    private string _title;
     [CascadingParameter]
     public bool ShowNavBar{ get; set; }
     [Parameter]
     public Action ToggleNavBar{ get; set; }
-    private string _title;
+    private string Title
+    {
+        get => _title;
+        set
+        {
+            if (_title == value)
+                return;
+            _title = value;
+            StateHasChanged();
+        }
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        _title = await _js.InvokeAsync<string>("getTitle");
-        StateHasChanged();
+        Title = await _js.InvokeAsync<string>("getTitle");
     }
 
     private void Toggle()

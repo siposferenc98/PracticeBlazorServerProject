@@ -1,5 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
+
 <PageTitle>PracticeBlazorServerProject</PageTitle>
 
 <CascadingValue Value=@ShowNavBar>
@@ -16,7 +17,6 @@
 @code
 {
     bool ShowNavBar { get; set; }
-    private object? _currentPage => Body.Target;
 
     private void ToggleNavBar()
     {

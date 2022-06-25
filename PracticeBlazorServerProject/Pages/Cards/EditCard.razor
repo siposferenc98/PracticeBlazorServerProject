@@ -1,8 +1,22 @@
 ﻿@page "/cards/edit/{Id}"
-<PageTitle>Editing: @_cardToEdit.Title</PageTitle>
+<PageTitle>Editing: @(_cardToEdit is null ? "Card not found!" : @_cardToEdit.Title)</PageTitle>
+
+@if(_cardToEdit is not null)
+{
+    <div class="d-flex flex-fill p-3">
+        <EditForm Model=@_cardToEdit>
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <CustomTextInput @bind-Value=@_cardToEdit.Title placeholder="Title"></CustomTextInput>
+            <CustomButton Text="Send" Type="submit"></CustomButton>
+        </EditForm>
+    </div>
+}
+
+
 
 @code {
-    private Card _cardToEdit = new();
+    private Card? _cardToEdit = new();
     private List<Card> _allCards = new()
         {
             new()
@@ -22,7 +36,7 @@
     {
         if(firstRender)
         {
-            _cardToEdit = _allCards.First(x => x.Id.ToString() == Id);
+            _cardToEdit = _allCards.FirstOrDefault(x => x.Id.ToString() == Id);
             StateHasChanged();
         }
     }
