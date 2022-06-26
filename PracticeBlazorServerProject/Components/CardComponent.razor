@@ -2,19 +2,41 @@
 
 <div class="d-flex m-3" style="min-height:350px; width:250px;background-image:url(@Card.BackgroundUrl);backdrop-filter:blur(3.5rem)">
     <div class="d-flex flex-column flex-fill p-3" style="background-color:rgba(0,0,0,0.8);">
-        <img src=@Card.ImageUrl class="rounded-circle" style="width:48px;height:48px;background-color:white;" />
-        <p class="fw-bold text-white">@Card.Title</p>
-        <p class="text-white-50">@Card.Location</p>
+        <div class="p-2 bg-light rounded-circle" style="width:48px;">
+            <img src=@Card.ImageUrl />
+        </div>
+
+        <p class="m-2 fw-bold text-white">@Card.Title</p>
+        <ul class="m-2 p-0" style="list-style-position:inside">
+            <li class="text-white-50 text-uppercase">@Card.Location</li>
+        </ul>
+        <div class="m-2">
+            <p class="text-white">
+                <span>
+                    <i class="fa-solid fa-circle"></i>
+                </span>
+                @Card.DateFrom
+            </p>
+            <p class="text-white">
+                <span>
+                    <i class="fa-solid fa-circle"></i>
+                </span>
+                @Card.DateTo
+            </p>
+        </div>
+
+        <div class="d-flex justify-content-center" style="margin-top:auto">
+            @if (Editable.HasValue && Editable.Value)
+            {
+                <CustomSmallButton BackgroundColor="blue" Color="white" Icon="fa-pen-to-square" OnClick=@NavigateToEdit></CustomSmallButton>
+            }
+            else if(Editable.HasValue && !Editable.Value)
+            {
+                <button>Delete</button>
+            }
         
-        @if (Editable)
-        {
-            <CustomSmallButton AdditionalClasses="margin-top:auto" BackgroundColor="blue" Color="white" Icon="fa-pen-to-square" OnClick=@NavigateToEdit></CustomSmallButton>
-        }
-        else
-        {
-            <button style="margin-top:auto;">Delete</button>
-        }
-        
+        </div>
+
 
     </div>
 </div>
@@ -26,7 +48,7 @@
     [Parameter]
     public Card Card{ get; set; }
     [Parameter]
-    public bool Editable { get; set; } = false;
+    public bool? Editable { get; set; } = null;
 
     private void NavigateToEdit()
     {

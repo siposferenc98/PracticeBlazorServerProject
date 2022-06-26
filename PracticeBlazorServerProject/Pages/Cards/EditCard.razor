@@ -5,23 +5,22 @@
 
 @if(_cardToEdit is not null)
 {
-    <div class="d-flex flex-fill justify-content-center align-items-center bg-light">
-        <EditForm Model=@_cardToEdit class="d-flex flex-column col-8 col-md-6 col-lg-4 p-3 border border-2" OnValidSubmit=@UpdateCard>
+    <div class="d-flex flex-column flex-md-row flex-fill justify-content-center align-items-center bg-light">
+        <EditForm Model=@_cardToEdit class="d-flex flex-column col-8 col-md-6 col-lg-4 p-3 m-2 border border-2" OnValidSubmit=@UpdateCard>
             <DataAnnotationsValidator />
             <ValidationSummary />
             <div>
-                <label>Title: </label>
+                <label class="fw-bold">Title: </label>
                 <CustomTextInput @bind-Value=@_cardToEdit.Title placeholder="Title"></CustomTextInput>
             </div>
 
             <div>
-                <label>Address: </label>
+                <label class="fw-bold">Address: </label>
                 <CustomTextInput @bind-Value=@_cardToEdit.Location placeholder="Address"></CustomTextInput>
                 <CustomButton OnClick=@SetLocation Icon="fa-location-crosshairs"></CustomButton>
                 <div class="my-2">
                     <div class="d-flex flex-fill">
-                        <iframe src=@_location frameborder="0" scrolling="no" marginheight="0" marginwidth="0" />
-                        <style>iframe{width:100%; height:100%}</style>
+                        <iframe style="width:100%;height:100%;" src=@_location frameborder="0" scrolling="no" marginheight="0" marginwidth="0" />
                     </div>
                 </div>
                 <div>
@@ -29,11 +28,17 @@
                 </div>
             </div>
 
-            <div>
-                <SfDateTimePicker TValue="DateTime" @bind-Value=@_cardToEdit.DateFrom></SfDateTimePicker>
+            <div class="d-flex my-2">
+                <SfDateTimePicker CssClass="m-2 blueRoundedBorder" TValue="DateTime" @bind-Value=@_cardToEdit.DateFrom></SfDateTimePicker>
+                <SfDateTimePicker CssClass="m-2 blueRoundedBorder"  TValue="DateTime" @bind-Value=@_cardToEdit.DateTo></SfDateTimePicker>
             </div>
             <CustomButton Type="submit">Update</CustomButton>
         </EditForm>
+
+        <div>
+            <label>Preview: </label>
+            <CardComponent Card=@_cardToEdit />
+        </div>
     </div>
 }
 

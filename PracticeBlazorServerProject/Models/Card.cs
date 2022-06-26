@@ -8,7 +8,7 @@ namespace PracticeBlazorServerProject.Models
         public Guid Id { get; set; }
         public string BackgroundUrl { get; set; }
         public string ImageUrl { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The card has no name")]
         public string Title { get; set; }
         public string Location { get; set; }
         public DateTime DateFrom { get; set; }

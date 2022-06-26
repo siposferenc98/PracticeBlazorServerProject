@@ -3,14 +3,11 @@
     font-family: Roboto;
     color: #12004c;
     background-color: aliceblue;
-    border: 2px solid #011463;
-    border-radius: 24px;
     padding: 10px 15px 10px 15px;
     margin: 10px 0px 10px 0px;
     box-shadow: rgba(0, 0, 0, 0.1) 2px 2px;
     transition: all 220ms ease-in-out;
     outline: none !important;
-    box-shadow:rgba(0,0,0,0.2) 1px 1px;
 }
 
     input:focus {

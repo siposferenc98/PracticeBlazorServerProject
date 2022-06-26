@@ -5,6 +5,23 @@
 }
 
 
+.blueRoundedBorder {
+    border: 2px solid #011463!important;
+    border-radius: 24px!important;
+    box-shadow: rgba(0,0,0,0.2) 1px 1px!important;
+}
+
+.e-icons
+{
+    border:none!important;
+    border-radius:24px;
+}
+
+.e-icons:hover
+{
+    background-color:transparent!important;
+}
+
 h1:focus {
     outline: none;
 }

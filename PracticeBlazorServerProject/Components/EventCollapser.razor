@@ -15,7 +15,7 @@
         <div class="d-flex">
             @foreach(var card in Event.Cards)
             {
-                <CardComponent Card=@card></CardComponent>
+                <CardComponent Card=@card Editable=false></CardComponent>
             }
         </div>
     }

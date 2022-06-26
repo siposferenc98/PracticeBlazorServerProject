@@ -1,7 +1,7 @@
 ﻿@inherits InputText
 
 <div class="d-flex flex-fill flex-wrap align-items-center">
-    <input @bind:event="oninput" @bind=@CurrentValueAsString @attributes="AdditionalAttributes" class=@CssClass/>
+    <input @bind:event="oninput" @bind=@CurrentValueAsString @attributes="AdditionalAttributes" class=@($"{CssClass} blueRoundedBorder")/>
     <CustomSmallButton 
         Icon=@(_valid ? "fa-check" : "fa-x")
         Color="white"
