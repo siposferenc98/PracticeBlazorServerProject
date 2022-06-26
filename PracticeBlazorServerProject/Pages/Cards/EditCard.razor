@@ -1,4 +1,6 @@
 ﻿@page "/cards/edit/{Id}"
+@inject EventsBoxDbContext _context
+
 <PageTitle>Editing: @_title</PageTitle>
 
 @if(_cardToEdit is not null)
@@ -25,28 +27,19 @@
 @code {
     private string _title;
     private Card? _cardToEdit = new();
-    private List<Card> _allCards = new()
-        {
-            new()
-            {
-                Id = Guid.Parse("5dc8c98d-bae9-4c3d-93cf-9500720a093a"),
-                BackgroundUrl = "https://t4.ftcdn.net/jpg/02/99/58/35/360_F_299583549_nhVRkQKMO1mpZ3NBoNz1I8HRUi6aR2w4.jpg",
-                Title = "testcard",
-                ImageUrl = "./Images/logo.png",
-                Location = "2310 Szigetszentmiklós-Lakihegyw"
-            }
-        };
-
+    private List<Card> _listOfCards = new();
     [Parameter]
     public string Id{ get; set; }
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if(firstRender)
         {
-            _cardToEdit = _allCards.FirstOrDefault(x => x.Id.ToString() == Id);
+            _listOfCards = await _context.Cards.ToListAsync();
+            _cardToEdit = _listOfCards.FirstOrDefault(x => x.Id.ToString() == Id);
             _title = _cardToEdit?.Title ?? "Card not found!";
             StateHasChanged();
         }
     }
+
 }

@@ -13,6 +13,7 @@ namespace PracticeBlazorServerProject.Models
         public string Location { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
+        public Guid EventId { get; set; }
 
     }
 }

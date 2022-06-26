@@ -1,5 +1,5 @@
 ﻿@page "/"
-
+@inject EventsBoxDbContext _context
 
 <PageTitle>Events</PageTitle>
 
@@ -8,35 +8,29 @@
         <CustomSmallButton Icon="fa-arrows-rotate" Color="white" BackgroundColor="#2626a8"/>
     </div>
     <div>
-        <EventCollapser Event=@e></EventCollapser>
+        @foreach(var e in _listOfEvents)
+        {
+            e.Cards = _listOfCards.Where(x => x.EventId == e.Id).ToList();
+            <EventCollapser Event=@e></EventCollapser>
+        }
     </div>
+    
 </div>
 
 
 @code
 {
-    private Event e = new()
+    private List<Event> _listOfEvents = new();
+    private List<Card> _listOfCards = new();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
         {
-            ImageUrl = "./Images/logo.png",
-            Title = "Test Event",
-            Cards = new()
-            {
-                new()
-                {
-                    Id = Guid.Parse("5dc8c98d-bae9-4c3d-93cf-9500720a093a"),
-                    BackgroundUrl = "https://t4.ftcdn.net/jpg/02/99/58/35/360_F_299583549_nhVRkQKMO1mpZ3NBoNz1I8HRUi6aR2w4.jpg",
-                    Title = "testcard",
-                    ImageUrl ="./Images/logo.png",
-                    Location = "2310 Szigetszentmiklós-Lakihegyw"
-                },
-                new()
-                {
-                    Id = Guid.Parse("50743ca7-0636-45ff-a5c5-88e2bca62b2f"),
-                    BackgroundUrl = "https://cdn.wallpapersafari.com/35/95/MaVqzY.jpg",
-                    Title = "testcard2",
-                    ImageUrl = "./Images/logo.png",
-                    Location = "Budapest ...."
-                }
-            }
-        };
+            _listOfEvents = await _context.Events.ToListAsync();
+            _listOfCards = await _context.Cards.ToListAsync();
+            StateHasChanged();
+        }
+    }
+
 }

@@ -1,7 +1,9 @@
 ﻿@page "/cards"
+@inject EventsBoxDbContext _context
+
 <PageTitle>Cards</PageTitle>
 <div class="d-flex flex-row flex-wrap p-2">
-    @foreach(var card in ListOfCards)
+    @foreach(var card in _listOfCards)
     {
         <CardComponent Card=@card Editable=true></CardComponent>
     }
@@ -10,23 +12,14 @@
 
 
 @code {
-    List<Card> ListOfCards = new()
+    private List<Card> _listOfCards = new();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
         {
-            new()
-            {
-                Id = Guid.Parse("5dc8c98d-bae9-4c3d-93cf-9500720a093a"),
-                BackgroundUrl = "https://t4.ftcdn.net/jpg/02/99/58/35/360_F_299583549_nhVRkQKMO1mpZ3NBoNz1I8HRUi6aR2w4.jpg",
-                Title = "testcard",
-                ImageUrl = "./Images/logo.png",
-                Location = "2310 Szigetszentmiklós-Lakihegyw"
-            },
-            new()
-            {
-                Id = Guid.Parse("50743ca7-0636-45ff-a5c5-88e2bca62b2f"),
-                BackgroundUrl = "https://cdn.wallpapersafari.com/35/95/MaVqzY.jpg",
-                Title = "testcard2",
-                ImageUrl = "./Images/logo.png",
-                Location = "Budapest ...."
-            }
-        };
+            _listOfCards = await _context.Cards.ToListAsync();
+            StateHasChanged();
+        }
+    }
 }
