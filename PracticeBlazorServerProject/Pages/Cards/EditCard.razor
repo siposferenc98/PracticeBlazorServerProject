@@ -1,5 +1,5 @@
 ﻿@page "/cards/edit/{Id}"
-<PageTitle>Editing: @(_cardToEdit is null ? "Card not found!" : @_cardToEdit.Title)</PageTitle>
+<PageTitle>Editing: @_title</PageTitle>
 
 @if(_cardToEdit is not null)
 {
@@ -7,7 +7,14 @@
         <EditForm Model=@_cardToEdit>
             <DataAnnotationsValidator />
             <ValidationSummary />
-            <CustomTextInput @bind-Value=@_cardToEdit.Title placeholder="Title"></CustomTextInput>
+            <div class="form-group">
+                <label>Title: </label>
+                <CustomTextInput @bind-Value=@_cardToEdit.Title placeholder="Title"></CustomTextInput>
+            </div>
+            <div class="form-group">
+                <label>Address: </label>
+                <CustomTextInput @bind-Value=@_cardToEdit.Location placeholder="Address"></CustomTextInput>
+            </div>
             <CustomButton Text="Send" Type="submit"></CustomButton>
         </EditForm>
     </div>
@@ -16,6 +23,7 @@
 
 
 @code {
+    private string _title;
     private Card? _cardToEdit = new();
     private List<Card> _allCards = new()
         {
@@ -37,6 +45,7 @@
         if(firstRender)
         {
             _cardToEdit = _allCards.FirstOrDefault(x => x.Id.ToString() == Id);
+            _title = _cardToEdit?.Title ?? "Card not found!";
             StateHasChanged();
         }
     }

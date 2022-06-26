@@ -1,4 +1,6 @@
 ﻿input {
+    display:block;
+    width:100%;
     font-family: Roboto;
     color: #12004c;
     background-color: aliceblue;
