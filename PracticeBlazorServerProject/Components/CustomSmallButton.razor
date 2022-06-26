@@ -1,4 +1,4 @@
-﻿<button class="@AdditionalClasses" @onclick=@OnClick style="color:@Color;background-color:@BackgroundColor">
+﻿<button class="@AdditionalClasses" @onclick=@OnClick style="color:@Color;background-color:@BackgroundColor" disabled=@Disabled>
     <i class="fa-solid @Icon"></i>
 </button>
 
@@ -13,4 +13,6 @@
     public string BackgroundColor{ get; set; }
     [Parameter]
     public string? AdditionalClasses{ get; set; }
+    [Parameter]
+    public bool Disabled { get; set; } = false;
 }

@@ -5,19 +5,34 @@
 
 @if(_cardToEdit is not null)
 {
-    <div class="d-flex flex-fill p-3">
-        <EditForm Model=@_cardToEdit>
+    <div class="d-flex flex-fill justify-content-center align-items-center bg-light">
+        <EditForm Model=@_cardToEdit class="d-flex flex-column col-8 col-md-6 col-lg-4 p-3 border border-2" OnValidSubmit=@UpdateCard>
             <DataAnnotationsValidator />
             <ValidationSummary />
-            <div class="form-group">
+            <div>
                 <label>Title: </label>
                 <CustomTextInput @bind-Value=@_cardToEdit.Title placeholder="Title"></CustomTextInput>
             </div>
-            <div class="form-group">
+
+            <div>
                 <label>Address: </label>
                 <CustomTextInput @bind-Value=@_cardToEdit.Location placeholder="Address"></CustomTextInput>
+                <CustomButton OnClick=@SetLocation Icon="fa-location-crosshairs"></CustomButton>
+                <div class="my-2">
+                    <div class="d-flex flex-fill">
+                        <iframe src=@_location frameborder="0" scrolling="no" marginheight="0" marginwidth="0" />
+                        <style>iframe{width:100%; height:100%}</style>
+                    </div>
+                </div>
+                <div>
+                    
+                </div>
             </div>
-            <CustomButton Text="Send" Type="submit"></CustomButton>
+
+            <div>
+                <SfDateTimePicker TValue="DateTime" @bind-Value=@_cardToEdit.DateFrom></SfDateTimePicker>
+            </div>
+            <CustomButton Type="submit">Update</CustomButton>
         </EditForm>
     </div>
 }
@@ -25,11 +40,14 @@
 
 
 @code {
+    private string _location => $"https://maps.google.com/maps?q={_locationQuery}&t=&z=13&ie=UTF8&iwloc=&output=embed";
+    private string _locationQuery = "";
     private string _title;
     private Card? _cardToEdit = new();
     private List<Card> _listOfCards = new();
     [Parameter]
     public string Id{ get; set; }
+
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -38,8 +56,22 @@
             _listOfCards = await _context.Cards.ToListAsync();
             _cardToEdit = _listOfCards.FirstOrDefault(x => x.Id.ToString() == Id);
             _title = _cardToEdit?.Title ?? "Card not found!";
+            SetLocation();
             StateHasChanged();
         }
+    }
+
+    private void SetLocation()
+    {
+        if(_cardToEdit is null)
+            return;
+
+        _locationQuery = _cardToEdit.Location;
+    }
+
+    private async Task UpdateCard()
+    {
+        await _context.SaveChangesAsync();
     }
 
 }

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using PracticeBlazorServerProject.Models;
 using Microsoft.EntityFrameworkCore;
+using Syncfusion.Blazor;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddDbContext<EventsBoxDbContext>(o=>o.UseSqlite(builder.Configuration.GetConnectionString("DefaultConn")));
+builder.Services.AddDbContext<EventsBoxDbContext>(o=>o.UseSqlite(builder.Configuration.GetConnectionString("DefaultConn")),ServiceLifetime.Transient);
+builder.Services.AddSyncfusionBlazor(o => { o.IgnoreScriptIsolation = true; });
 
 var app = builder.Build();
 

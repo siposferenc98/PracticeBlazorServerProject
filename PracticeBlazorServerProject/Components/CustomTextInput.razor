@@ -1,7 +1,15 @@
 ﻿@inherits InputText
 
-<input @bind:event="oninput" @bind=@CurrentValueAsString @attributes="AdditionalAttributes" class=@CssClass/>
+<div class="d-flex flex-fill flex-wrap align-items-center">
+    <input @bind:event="oninput" @bind=@CurrentValueAsString @attributes="AdditionalAttributes" class=@CssClass/>
+    <CustomSmallButton 
+        Icon=@(_valid ? "fa-check" : "fa-x")
+        Color="white"
+        AdditionalClasses="m-2"
+        Disabled=true
+        BackgroundColor=@(_valid ? "green" : "red")></CustomSmallButton>
+</div>
 
 @code {
-    
+    private bool _valid => CssClass.Split(" ").Any(x => x == "valid");
 }
