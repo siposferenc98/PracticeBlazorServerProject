@@ -1,9 +1,9 @@
-﻿@page "/cards/edit/{Id}"
+﻿@page "/cards/edit/{Id?}"
 @inject EventsBoxDbContext _context
 
-<PageTitle>Editing: @_title</PageTitle>
+<PageTitle>@_title</PageTitle>
 
-@if(_cardToEdit is not null)
+@if((_cardToEdit is not null && Id is not null)|| Id is null)
 {
     <div class="d-flex flex-column flex-md-row flex-fill justify-content-center align-items-center bg-light">
         <EditForm Model=@_cardToEdit class="d-flex flex-column col-8 col-md-6 col-lg-4 p-3 m-2 border border-2" OnValidSubmit=@UpdateCard>
@@ -51,7 +51,7 @@
     private Card? _cardToEdit = new();
     private List<Card> _listOfCards = new();
     [Parameter]
-    public string Id{ get; set; }
+    public string? Id{ get; set; }
 
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -59,8 +59,10 @@
         if(firstRender)
         {
             _listOfCards = await _context.Cards.ToListAsync();
-            _cardToEdit = _listOfCards.FirstOrDefault(x => x.Id.ToString() == Id);
-            _title = _cardToEdit?.Title ?? "Card not found!";
+
+            _cardToEdit = Id is not null ? _listOfCards.FirstOrDefault(x => x.Id.ToString() == Id) : new();
+
+            _title = (_cardToEdit is not null && Id is not null && _cardToEdit.Id != Guid.Empty) ? $"Editing: {_cardToEdit.Title}" : Id is null ? "Creating new card!" : "Card not found!";
             SetLocation();
             StateHasChanged();
         }
@@ -76,6 +78,10 @@
 
     private async Task UpdateCard()
     {
+        if(Id is null)
+        {
+            _context.Cards.Add(_cardToEdit);
+        }
         await _context.SaveChangesAsync();
     }
 

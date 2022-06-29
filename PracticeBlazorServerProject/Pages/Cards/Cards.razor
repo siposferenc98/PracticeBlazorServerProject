@@ -1,13 +1,18 @@
 ﻿@page "/cards"
 @inject EventsBoxDbContext _context
+@inject NavigationManager _navigationManager
 
 <PageTitle>Cards</PageTitle>
-<div class="d-flex flex-row flex-wrap p-2">
-    @foreach(var card in _listOfCards)
-    {
-        <CardComponent Card=@card Editable=true></CardComponent>
-    }
 
+<div class="d-flex flex-fill flex-column m-3">
+    <CustomSmallButton OnClick=@CreateCard Icon="fa-circle-plus" Color="white" BackgroundColor="#2626a8"/>
+    <div class="d-flex flex-row flex-wrap p-2">
+        @foreach(var card in _listOfCards)
+        {
+            <CardComponent Card=@card Editable=true></CardComponent>
+        }
+
+    </div>
 </div>
 
 
@@ -21,5 +26,10 @@
             _listOfCards = await _context.Cards.ToListAsync();
             StateHasChanged();
         }
+    }
+
+    private void CreateCard()
+    {
+        _navigationManager.NavigateTo("/cards/edit/");
     }
 }
